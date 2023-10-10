@@ -1,11 +1,12 @@
 import tkinter as tk # grafika
+from tkinter import *
 import mysql.connector as baza # baza danych
 import random # losowanie pytań
 # Zmienne, które się podaje podczas łączenia
 host = "localhost"
 user = "root"
 password = ""
-baza_danych = "milionerzy"
+baza_danych = "milionerzy2dt"
 # Łączenie z bazą danych
 connection = baza.connect(
     host=host,
@@ -24,8 +25,11 @@ PrzyciskOdp_B = tk.StringVar()
 PrzyciskOdp_C = tk.StringVar()
 PrzyciskOdp_D = tk.StringVar()
 pieniadze_var = tk.IntVar()
+telefon_var = tk.StringVar()
+pieniadze_var.set("Twoje pieniądze: 0")
 # Pusta lista do użytych juz pytań (resetuje sie po ponownym wystartowaniu gry)
 uzyte = []
+
 def pytania():
     # losowanie pytań
     # (Losowanie id pytania) 
@@ -46,7 +50,7 @@ def pytania():
     
     # Wykonanie komendy SELECT za pomocą cursor()
     zapytanie.execute(f"SELECT tresc FROM pytania WHERE id = {losowe}")
-    
+
     # Wybieranie wyników z SELECT
     wynik = zapytanie.fetchall()
     for tresc_pytania in wynik:
@@ -67,7 +71,7 @@ def pytania():
         usun_apostrof_2 = usun_nawias_z_2.replace("'", "")
         global odpowiedz_A
         odpowiedz_A = usun_apostrof_2.replace(",", "")
-        PrzyciskOdp_A.set(odpowiedz_A)
+        PrzyciskOdp_A.set("A. " + odpowiedz_A)
     
     # Wykonanie komendy SELECT po odpowiedź B
     zapytanie.execute(f"SELECT odp_b FROM pytania WHERE id = {losowe}")
@@ -79,7 +83,7 @@ def pytania():
         usun_apostrof_3 = usun_nawias_z_3.replace("'", "")
         global odpowiedz_B
         odpowiedz_B = usun_apostrof_3.replace(",", "")
-        PrzyciskOdp_B.set(odpowiedz_B)
+        PrzyciskOdp_B.set("B. " + odpowiedz_B)
     
     # Wykonanie komendy SELECT po odpowiedź C
     zapytanie.execute(f"SELECT odp_c FROM pytania WHERE id = {losowe}")
@@ -91,7 +95,7 @@ def pytania():
         usun_apostrof_4 = usun_nawias_z_4.replace("'", "")
         global odpowiedz_C
         odpowiedz_C = usun_apostrof_4.replace(",", "")
-        PrzyciskOdp_C.set(odpowiedz_C)
+        PrzyciskOdp_C.set("C. "+ odpowiedz_C)
     
     # Wykonanie komendy SELECT po odpowiedź D
     zapytanie.execute(f"SELECT odp_d FROM pytania WHERE id = {losowe}")
@@ -103,7 +107,7 @@ def pytania():
         usun_apostrof_5 = usun_nawias_z_5.replace("'", "")
         global odpowiedz_D
         odpowiedz_D = usun_apostrof_5.replace(",", "")
-        PrzyciskOdp_D.set(odpowiedz_D)
+        PrzyciskOdp_D.set("D. " + odpowiedz_D)
         
     
     
@@ -121,43 +125,81 @@ def pytania():
 # OD TAD TRZEBA DOKONCZYC OK OK OK OK
 # TRZEBA TYLKO ZROBIC TEN SYSTEM PIENIEDZY I GIT
 # JUZ DZIALAJA DOBRE I ZLE ODPOWIEDZI
-    global pieniadze
-    global liczba
-    pieniadze = [0,500,1000,2000,5000,10000,20000,40000,75000,125000,250000,500000,1000000]
-    liczba = 0
-    
+liczba = 0
+
+def pieniadze_function():
+        pieniadze = [0,500,1000,2000,5000,10000,20000,40000,75000,125000,250000,500000,1000000]
+        global liczba
+        liczba += 1
+        pieniadze_var.set("Twoje pieniądze: " + str(pieniadze[liczba]))
+
 def sprawdz_przycisk_a():
     if (koncowy_tekst_poprawnej_odpowiedzi == odpowiedz_A):
-        print("Przycisk A Działa")
+        pieniadze_function()
         pytania()
     else:
         root.destroy()
 def sprawdz_przycisk_b():
     if (koncowy_tekst_poprawnej_odpowiedzi == odpowiedz_B):
-        print("Przycisk B Działa")
+        pieniadze_function()
         pytania()
     else:
         root.destroy()
 def sprawdz_przycisk_c():
     if (koncowy_tekst_poprawnej_odpowiedzi == odpowiedz_C):
-        print("Przycisk C Działa")
+        pieniadze_function()
         pytania()
     else:
         root.destroy()
 def sprawdz_przycisk_d():
     if (koncowy_tekst_poprawnej_odpowiedzi == odpowiedz_D):
-        print("Przycisk D Działa")
+        pieniadze_function()
         pytania()
     else:
         root.destroy()
 pytania()
 
+def Telefonik():
+    nie_telefon = []
+    if koncowy_tekst_poprawnej_odpowiedzi == odpowiedz_A:
+        nie_telefon.append(str(odpowiedz_A))
+    elif koncowy_tekst_poprawnej_odpowiedzi == odpowiedz_B:
+        nie_telefon.append(str(odpowiedz_B))
+    elif koncowy_tekst_poprawnej_odpowiedzi == odpowiedz_C:
+        nie_telefon.append(str(odpowiedz_C))
+    elif koncowy_tekst_poprawnej_odpowiedzi == odpowiedz_D:
+        nie_telefon.append(str(odpowiedz_D))
+    
+    
+
+    if odpowiedz_A in nie_telefon:
+        random_a1 = [odpowiedz_B, odpowiedz_C, odpowiedz_D, koncowy_tekst_poprawnej_odpowiedzi]
+        telefon_var.set(f"Wydaje mi się, że to może być {random.choiec(random_a1)} albo {random.choice(random_a1)}")
+    elif odpowiedz_B in nie_telefon:
+        random_a2 = [odpowiedz_A, odpowiedz_C, odpowiedz_D, koncowy_tekst_poprawnej_odpowiedzi]
+        telefon_var.set(f"Wydaje mi się, że to może być {random.choice(random_a2)} albo {random.choice(random_a2)}")
+    elif odpowiedz_C in nie_telefon:
+        random_a3 = [odpowiedz_B, odpowiedz_A, odpowiedz_D, koncowy_tekst_poprawnej_odpowiedzi]
+        telefon_var.set(f"Wydaje mi się, że to może być {random.choice(random_a3)} albo {random.choice(random_a3)}")
+    elif odpowiedz_D in nie_telefon:
+        random_a4 = [odpowiedz_B, odpowiedz_C, odpowiedz_A, koncowy_tekst_poprawnej_odpowiedzi]
+        telefon_var.set(f"Wydaje mi się, że to może być {random.choice(random_a4)} albo {random.choice(random_a4)}")
+        Telefon.pack_forget()
+
+
+# KOLA RATUNKOWE
+# Telefon do przyjaciela, 50/50, publicznosc
+
 pieniadze = tk.Label(root, textvariable=pieniadze_var).pack()
 tekst_pytanie = tk.Label(root, textvariable=pytanie_tekst).pack()
-buton_1 = tk.Button(root, textvariable=PrzyciskOdp_A, command=lambda:sprawdz_przycisk_a()).pack()
-buton_2 = tk.Button(root, textvariable=PrzyciskOdp_B, command=lambda:sprawdz_przycisk_b()).pack()
-buton_3 = tk.Button(root, textvariable=PrzyciskOdp_C, command=lambda:sprawdz_przycisk_c()).pack()
-buton_4 = tk.Button(root, textvariable=PrzyciskOdp_D, command=lambda:sprawdz_przycisk_d()).pack()
+odp_a = tk.Button(root, textvariable=PrzyciskOdp_A, command=lambda:sprawdz_przycisk_a()).pack()
+odp_b = tk.Button(root, textvariable=PrzyciskOdp_B, command=lambda:sprawdz_przycisk_b()).pack()
+odp_c = tk.Button(root, textvariable=PrzyciskOdp_C, command=lambda:sprawdz_przycisk_c()).pack()
+odp_d = tk.Button(root, textvariable=PrzyciskOdp_D, command=lambda:sprawdz_przycisk_d()).pack()
+Telefon_Label = tk.Label(root, textvariable=telefon_var).pack()
+Telefon = tk.Button(root, text="Telefon do przyjaciela", command=lambda:Telefonik()).pack()
+PolNaPol = tk.Button(root, text="50/50").pack()
+Publicznosc = tk.Button(root, text="Publiczność").pack()
 
 root.mainloop()
 connection.close()
