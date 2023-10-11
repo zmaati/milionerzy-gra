@@ -1,5 +1,6 @@
 import tkinter as tk # grafika
 from tkinter import *
+from tkinter import messagebox
 import mysql.connector as baza # baza danych
 import random # losowanie pytań
 # Zmienne, które się podaje podczas łączenia
@@ -15,9 +16,17 @@ connection = baza.connect(
     database = baza_danych
 )
 # Ustawienie okna tkinter
+ 
+okno = messagebox.askquestion("Milionerzy", "Czy chcesz zacząć grę w milionerów?") 
 root = tk.Tk()
 root.title("Milionerzy")
 root.geometry("800x600")
+
+if okno == 'no':
+    root.destroy()
+
+root.after(1, root.focus_force)
+
 # Zmienne do labeli oraz przycisków
 pytanie_tekst = tk.StringVar()
 PrzyciskOdp_A = tk.StringVar()
@@ -30,6 +39,7 @@ pieniadze_var.set("Twoje pieniądze: 0")
 # Pusta lista do użytych juz pytań (resetuje sie po ponownym wystartowaniu gry)
 uzyte = []
 
+
 def pytania():
     # losowanie pytań
     # (Losowanie id pytania) 
@@ -40,7 +50,7 @@ def pytania():
             continue
         else: # Jeżeli nie to koniec losowania
             break 
-    
+        
     # Dodawanie użytych pytan do listy uzyte (28 linia)
     uzyte.append(losowe)
     
@@ -122,6 +132,8 @@ def pytania():
         global koncowy_tekst_poprawnej_odpowiedzi
         koncowy_tekst_poprawnej_odpowiedzi = usun_apostrof_6.replace(",", "")
         print(koncowy_tekst_poprawnej_odpowiedzi)
+
+
 # OD TAD TRZEBA DOKONCZYC OK OK OK OK
 # TRZEBA TYLKO ZROBIC TEN SYSTEM PIENIEDZY I GIT
 # JUZ DZIALAJA DOBRE I ZLE ODPOWIEDZI
@@ -137,69 +149,96 @@ def sprawdz_przycisk_a():
     if (koncowy_tekst_poprawnej_odpowiedzi == odpowiedz_A):
         pieniadze_function()
         pytania()
+        odp_a.config(state="active")
+        odp_b.config(state="active")
+        odp_c.config(state="active")
+        odp_d.config(state="active")
     else:
         root.destroy()
 def sprawdz_przycisk_b():
     if (koncowy_tekst_poprawnej_odpowiedzi == odpowiedz_B):
         pieniadze_function()
         pytania()
+        odp_a.config(state="active")
+        odp_b.config(state="active")
+        odp_c.config(state="active")
+        odp_d.config(state="active")
     else:
         root.destroy()
 def sprawdz_przycisk_c():
     if (koncowy_tekst_poprawnej_odpowiedzi == odpowiedz_C):
         pieniadze_function()
         pytania()
+        odp_a.config(state="active")
+        odp_b.config(state="active")
+        odp_c.config(state="active")
+        odp_d.config(state="active")
     else:
         root.destroy()
 def sprawdz_przycisk_d():
     if (koncowy_tekst_poprawnej_odpowiedzi == odpowiedz_D):
         pieniadze_function()
         pytania()
+        odp_a.config(state="active")
+        odp_b.config(state="active")
+        odp_c.config(state="active")
+        odp_d.config(state="active")
     else:
         root.destroy()
 pytania()
 
 def Telefonik():
-    nie_telefon = []
-    if koncowy_tekst_poprawnej_odpowiedzi == odpowiedz_A:
-        nie_telefon.append(str(odpowiedz_A))
-    elif koncowy_tekst_poprawnej_odpowiedzi == odpowiedz_B:
-        nie_telefon.append(str(odpowiedz_B))
-    elif koncowy_tekst_poprawnej_odpowiedzi == odpowiedz_C:
-        nie_telefon.append(str(odpowiedz_C))
-    elif koncowy_tekst_poprawnej_odpowiedzi == odpowiedz_D:
-        nie_telefon.append(str(odpowiedz_D))
-    
+    # TO DO POPRAWKI OK OK OK OK - KRYSTIAN OK OK
+    telefon_var.set(f"Poprawna odpowiedź to {koncowy_tekst_poprawnej_odpowiedzi}")
+    Telefon.config(state="disabled")
+
+def PolNaPol_Funkcja():
+    if odpowiedz_A == koncowy_tekst_poprawnej_odpowiedzi:
+        odp_c.config(state="disabled")
+        odp_d.config(state="disabled")
+    if odpowiedz_B == koncowy_tekst_poprawnej_odpowiedzi:
+        odp_c.config(state="disabled")
+        odp_a.config(state="disabled")
+    if odpowiedz_C == koncowy_tekst_poprawnej_odpowiedzi:
+        odp_b.config(state="disabled")
+        odp_d.config(state="disabled")
+    if odpowiedz_D == koncowy_tekst_poprawnej_odpowiedzi:
+        odp_c.config(state="disabled")
+        odp_a.config(state="disabled")
+
+    PolNaPol.config(state="disabled")
+
+def Publicznosc_Funkcja():
+    # TO POZNIEJ TEZ OK OK | TRZEBA BEDZIE OBLICZYC PROCENTY
+    print(random.randint(51,100),"% zagłosowało na odpowiedz: ",koncowy_tekst_poprawnej_odpowiedzi)
+
     
 
-    if odpowiedz_A in nie_telefon:
-        random_a1 = [odpowiedz_B, odpowiedz_C, odpowiedz_D, koncowy_tekst_poprawnej_odpowiedzi]
-        telefon_var.set(f"Wydaje mi się, że to może być {random.choiec(random_a1)} albo {random.choice(random_a1)}")
-    elif odpowiedz_B in nie_telefon:
-        random_a2 = [odpowiedz_A, odpowiedz_C, odpowiedz_D, koncowy_tekst_poprawnej_odpowiedzi]
-        telefon_var.set(f"Wydaje mi się, że to może być {random.choice(random_a2)} albo {random.choice(random_a2)}")
-    elif odpowiedz_C in nie_telefon:
-        random_a3 = [odpowiedz_B, odpowiedz_A, odpowiedz_D, koncowy_tekst_poprawnej_odpowiedzi]
-        telefon_var.set(f"Wydaje mi się, że to może być {random.choice(random_a3)} albo {random.choice(random_a3)}")
-    elif odpowiedz_D in nie_telefon:
-        random_a4 = [odpowiedz_B, odpowiedz_C, odpowiedz_A, koncowy_tekst_poprawnej_odpowiedzi]
-        telefon_var.set(f"Wydaje mi się, że to może być {random.choice(random_a4)} albo {random.choice(random_a4)}")
-        Telefon.pack_forget()
 
+        
 
 # KOLA RATUNKOWE
 # Telefon do przyjaciela, 50/50, publicznosc
 
+# Widgety
 pieniadze = tk.Label(root, textvariable=pieniadze_var).pack()
 tekst_pytanie = tk.Label(root, textvariable=pytanie_tekst).pack()
-odp_a = tk.Button(root, textvariable=PrzyciskOdp_A, command=lambda:sprawdz_przycisk_a()).pack()
-odp_b = tk.Button(root, textvariable=PrzyciskOdp_B, command=lambda:sprawdz_przycisk_b()).pack()
-odp_c = tk.Button(root, textvariable=PrzyciskOdp_C, command=lambda:sprawdz_przycisk_c()).pack()
-odp_d = tk.Button(root, textvariable=PrzyciskOdp_D, command=lambda:sprawdz_przycisk_d()).pack()
+odp_a = tk.Button(root, textvariable=PrzyciskOdp_A, command=lambda:sprawdz_przycisk_a())
+odp_b = tk.Button(root, textvariable=PrzyciskOdp_B, command=lambda:sprawdz_przycisk_b())
+odp_c = tk.Button(root, textvariable=PrzyciskOdp_C, command=lambda:sprawdz_przycisk_c())
+odp_d = tk.Button(root, textvariable=PrzyciskOdp_D, command=lambda:sprawdz_przycisk_d())
 Telefon_Label = tk.Label(root, textvariable=telefon_var).pack()
-Telefon = tk.Button(root, text="Telefon do przyjaciela", command=lambda:Telefonik()).pack()
-PolNaPol = tk.Button(root, text="50/50").pack()
-Publicznosc = tk.Button(root, text="Publiczność").pack()
+Telefon = tk.Button(root, text="Telefon do przyjaciela", command=lambda:Telefonik())
+PolNaPol = tk.Button(root, text="50/50", command=lambda:PolNaPol_Funkcja())
+Publicznosc = tk.Button(root, text="Publiczność",command=lambda:Publicznosc_Funkcja())
+# Wyświetlanie widgetów
+odp_a.pack()
+odp_b.pack()
+odp_c.pack()
+odp_d.pack()
+PolNaPol.pack()
+Telefon.pack()
+Publicznosc.pack()
 
 root.mainloop()
 connection.close()
