@@ -256,12 +256,12 @@ def wykres(odp):
 #graficzka
 
 
-obraz = Image.open("git.gif")
+obraz = Image.open("do graficzki.gif")
 tlo_obraz = ImageTk.PhotoImage(obraz)
 czcionka = tkFont.Font(family='Impact', size=20, weight='bold')
 
 # Widgety
-image = Image.open("git.gif")  # Zmień na odpowiednią ścieżkę do swojego obrazu
+image = Image.open("do graficzki.gif")  # Zmień na odpowiednią ścieżkę do swojego obrazu
 
 # Konwertuj obraz PIL na obiekt PhotoImage
 photo = ImageTk.PhotoImage(image)
