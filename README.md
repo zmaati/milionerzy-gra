@@ -102,7 +102,7 @@ Oto lista wszystkich zmiennych używanych w kodzie gry "Milionerzy" wraz z krót
 ### koncowy_tekst_poprawnej_odpowiedzi:
  Zmienna przechowująca treść poprawnej odpowiedzi na pytanie.
 
-### liczba:
+### nrIndeks:
  Zmienna przechowująca liczbę, która zwiększa się po poprawnej odpowiedzi, służy do aktualizacji stanu pieniędzy.
 
 
@@ -126,20 +126,35 @@ def pytania():
 
 
 ### pieniadze_function():
-Aktualizuje stan pieniędzy.
+Aktualizuje stan pieniędzy. 
+Zwiększany jest numer indeksu listy pieniadze kiedy wywołana jest funkcja sprawdz_przycisk_[a,b,c,d]
 przykład:
 
 ```python
+nrIndeks = 0
 def pieniadze_function():
         pieniadze = [0,500,1000,2000,5000,10000,20000,40000,75000,125000,250000,500000,1000000]
-        global liczba
-        liczba += 1
-        pieniadze_var.set("Twoje pieniądze: " + str(pieniadze[liczba]))
+        global nrIndeks
+        nrIndeks += 1
+        pieniadze_var.set("Twoje pieniądze: " + str(pieniadze[nrIndeks]))
+```
+
+### AktywujPrzyciski():
+Zmienia stan przycisku z "disabled" na "active"
+
+przykład:
+
+```python
+def AktywujPrzyciski():
+    odp_a.config(state="active")
+    odp_b.config(state="active")
+    odp_c.config(state="active")
+    odp_d.config(state="active")
 ```
 
 
 ### sprawdz_przycisk_a(), sprawdz_przycisk_b(), sprawdz_przycisk_c(), sprawdz_przycisk_d():
-Sprawdzają, czy odpowiedź jest poprawna, aktualizują pieniądze i przechodzą do kolejnego pytania.
+Sprawdzają, czy odpowiedź jest poprawna, aktualizują pieniądze, aktywują wyłączone przyciski używająć funkcji AktywujPrzyciski() (zostają wyłączone po kliknięciu koła ratunkowego) i przechodzą do kolejnego pytania.
 
 przykład:
 
@@ -148,22 +163,19 @@ def sprawdz_przycisk_a():
     if (koncowy_tekst_poprawnej_odpowiedzi == odpowiedz_A):
         pieniadze_function()
         pytania()
-        odp_a.config(state="active")
-        odp_b.config(state="active")
-        odp_c.config(state="active")
-        odp_d.config(state="active")
+        AktywujPrzyciski()
     else:
         root.destroy()
 ```
 
 
-### Telefonik():
+### TelefonDoPrzyjaciela():
 Wyświetla informację o odpowiedzi przyjaciela.
 
 przykład:
 
 ```python
-def Telefonik():
+def TelefonDoPrzyjaciela():
     messagebox.showinfo("Przyjaciel",f"Przyjaciel podpowiada, że {koncowy_tekst_poprawnej_odpowiedzi} to poprawna odpowiedź.")
     Telefon.config(state="disabled")
 ```
