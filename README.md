@@ -111,7 +111,7 @@ Oto lista wszystkich zmiennych używanych w kodzie gry "Milionerzy" wraz z krót
 Losuje pytania z bazy danych i przygotowuje interfejs.
 przykład:
 
-```
+```python
 def pytania():
     # losowanie pytań
     # (Losowanie id pytania)
@@ -129,7 +129,7 @@ def pytania():
 Aktualizuje stan pieniędzy.
 przykład:
 
-```
+```python
 def pieniadze_function():
         pieniadze = [0,500,1000,2000,5000,10000,20000,40000,75000,125000,250000,500000,1000000]
         global liczba
@@ -143,7 +143,7 @@ Sprawdzają, czy odpowiedź jest poprawna, aktualizują pieniądze i przechodzą
 
 przykład:
 
-```
+```python
 def sprawdz_przycisk_a():
     if (koncowy_tekst_poprawnej_odpowiedzi == odpowiedz_A):
         pieniadze_function()
@@ -162,7 +162,7 @@ Wyświetla informację o odpowiedzi przyjaciela.
 
 przykład:
 
-```
+```python
 def Telefonik():
     messagebox.showinfo("Przyjaciel",f"Przyjaciel podpowiada, że {koncowy_tekst_poprawnej_odpowiedzi} to poprawna odpowiedź.")
     Telefon.config(state="disabled")
@@ -174,7 +174,7 @@ Obsługuje mechanizm 50/50.
 
 przykład:
 
-```
+```python
 def PolNaPol_Funkcja():
     if odpowiedz_A == koncowy_tekst_poprawnej_odpowiedzi:
         odp_c.config(state="disabled")
@@ -187,7 +187,7 @@ Obsługuje mechanizm "Publiczność".
 
 przykład:
 
-```
+```python
 def Publicznosc_Funkcja():
     if odpowiedz_A == koncowy_tekst_poprawnej_odpowiedzi:
         wykres("A")
@@ -205,7 +205,7 @@ Tworzy wykres "Wynik publiczności".
 
 przykład:
 
-```
+```python
 def wykres(odp):
     mylabels = ["A", "B", "C", "D"] # Nazwy, które pojawią się przy wykresie
     if odp == "A":
