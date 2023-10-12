@@ -7,7 +7,14 @@ Gra "Milionerzy" to projekt napisany w języku Python z wykorzystaniem bibliotek
 Aby uruchomić grę "Milionerzy", wykonaj następujące kroki:
 
 
-Upewnij się, że masz zainstalowaną bibliotekę Tkinter, Python oraz serwer MySQL.
+Upewnij się, że masz zainstalowane następujące biblioteki:
+```
+tkinter
+mysql-connector-python
+matplotlib
+Pillow
+numpy
+```
 
 Skonfiguruj połączenie z bazą danych, dostosowując zmienne takie jak host, user, password, i baza_danych w kodzie.
 
