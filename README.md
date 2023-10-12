@@ -12,10 +12,15 @@ Aby uruchomić tę aplikację, potrzebujesz zainstalowanych następujących komp
 ```
 Python 3.x
 Tkinter
-mysql.connector
+mysql-connector-python
 Matplotlib
 NumPy
-PIL (Python Imaging Library)
+Pillow
+```
+
+Możesz też otworzyć terminal w folderze z grą i wpisać
+```
+pip install -r requirements.txt
 ```
 
 ## 3. Połączenie z Bazą Danych
