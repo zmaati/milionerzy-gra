@@ -1,0 +1,5 @@
+tkinter
+mysql-connector-python
+matplotlib
+numpy
+Pillow
