@@ -68,76 +68,49 @@ def pytania():
     wynik = zapytanie.fetchall()
     for tresc_pytania in wynik:
         tresc_pytania = str(tresc_pytania)
-        usun_nawias_o = tresc_pytania.replace("(", "")
-        usun_nawias_z = usun_nawias_o.replace(")", "")
-        usun_apostrof = usun_nawias_z.replace("'", "")
-        koncowy_tekst_pytanie_1 = usun_apostrof.replace(",", "")
+        koncowy_tekst_pytanie_1 = tresc_pytania.strip('(),\'')
         pytanie_tekst.set(koncowy_tekst_pytanie_1)
-
-
     # Wykonanie komendy SELECT po odpowiedź A
     zapytanie.execute(f"SELECT odp_a FROM pytania WHERE id = {losowe}")
     wynik_a = zapytanie.fetchall()
     for tresc_odpowiedzi_a in wynik_a:
         tresc_odpowiedzi_a = str(tresc_odpowiedzi_a)
-        usun_nawias_o_2 = tresc_odpowiedzi_a.replace("(", "")
-        usun_nawias_z_2 = usun_nawias_o_2.replace(")", "")
-        usun_apostrof_2 = usun_nawias_z_2.replace("'", "")
         global odpowiedz_A
-        odpowiedz_A = usun_apostrof_2.replace(",", "")
+        odpowiedz_A = tresc_odpowiedzi_a.strip('(),\'')
         PrzyciskOdp_A.set("A. " + odpowiedz_A)
-
     # Wykonanie komendy SELECT po odpowiedź B
     zapytanie.execute(f"SELECT odp_b FROM pytania WHERE id = {losowe}")
     wynik_b = zapytanie.fetchall()
     for tresc_odpowiedzi_b in wynik_b:
         tresc_odpowiedzi_b = str(tresc_odpowiedzi_b)
-        usun_nawias_o_3 = tresc_odpowiedzi_b.replace("(", "")
-        usun_nawias_z_3 = usun_nawias_o_3.replace(")", "")
-        usun_apostrof_3 = usun_nawias_z_3.replace("'", "")
         global odpowiedz_B
-        odpowiedz_B = usun_apostrof_3.replace(",", "")
+        odpowiedz_B = tresc_odpowiedzi_b.strip('(),\'')
         PrzyciskOdp_B.set("B. " + odpowiedz_B)
-
-
-
     # Wykonanie komendy SELECT po odpowiedź C
     zapytanie.execute(f"SELECT odp_c FROM pytania WHERE id = {losowe}")
     wynik_c = zapytanie.fetchall()
     for tresc_odpowiedzi_c in wynik_c:
         tresc_odpowiedzi_c = str(tresc_odpowiedzi_c)
-        usun_nawias_o_4 = tresc_odpowiedzi_c.replace("(", "")
-        usun_nawias_z_4 = usun_nawias_o_4.replace(")", "")
-        usun_apostrof_4 = usun_nawias_z_4.replace("'", "")
         global odpowiedz_C
-        odpowiedz_C = usun_apostrof_4.replace(",", "")
+        odpowiedz_C = tresc_odpowiedzi_c.strip('(),\'')
         PrzyciskOdp_C.set("C. "+ odpowiedz_C)
-
     # Wykonanie komendy SELECT po odpowiedź D
     zapytanie.execute(f"SELECT odp_d FROM pytania WHERE id = {losowe}")
     wynik_d = zapytanie.fetchall()
     for tresc_odpowiedzi_d in wynik_d:
         tresc_odpowiedzi_d = str(tresc_odpowiedzi_d)
-        usun_nawias_o_5 = tresc_odpowiedzi_d.replace("(", "")
-        usun_nawias_z_5 = usun_nawias_o_5.replace(")", "")
-        usun_apostrof_5 = usun_nawias_z_5.replace("'", "")
         global odpowiedz_D
-        odpowiedz_D = usun_apostrof_5.replace(",", "")
+        odpowiedz_D = tresc_odpowiedzi_d.strip('(),\'')
         PrzyciskOdp_D.set("D. " + odpowiedz_D)
-
-
-
     # Wykonanie komendy SELECT po poprawną odpowiedź
     zapytanie.execute(f"SELECT pop_odp FROM pytania WHERE id = {losowe}")
     wynik_poprawna_odpowiedz = zapytanie.fetchall()
     for tresc_poprawnej_odpowiedzi in wynik_poprawna_odpowiedz:
         tresc_poprawnej_odpowiedzi = str(tresc_poprawnej_odpowiedzi)
-        usun_nawias_o_6 = tresc_poprawnej_odpowiedzi.replace("(", "")
-        usun_nawias_z_6 = usun_nawias_o_6.replace(")", "")
-        usun_apostrof_6 = usun_nawias_z_6.replace("'", "")
         global koncowy_tekst_poprawnej_odpowiedzi
-        koncowy_tekst_poprawnej_odpowiedzi = usun_apostrof_6.replace(",", "")
+        koncowy_tekst_poprawnej_odpowiedzi = tresc_poprawnej_odpowiedzi.strip('(),\'')
         # print(koncowy_tekst_poprawnej_odpowiedzi)
+        # Sprawdzanie odpowiedzi ^
 
 nrIndeks = 0
 def pieniadze_function():
@@ -156,72 +129,35 @@ def AktywujPrzyciski():
     odp_c.config(state="active")
     odp_d.config(state="active")
 
-def sprawdz_przycisk_a():
-    if (koncowy_tekst_poprawnej_odpowiedzi == odpowiedz_A):
+def sprawdz_odpowiedz(odpowiedz):
+    if koncowy_tekst_poprawnej_odpowiedzi == odpowiedz:
         pieniadze_function()
         pytania()
         AktywujPrzyciski()
     else:
         if str(pieniadze_var.get()) != "0":
-            zla_odpowiedz_message1 = "Wybrałeś/aś złą odpowiedź.\nUdało ci się wygrać " + str(pieniadze_var.get()) + "PLN"
-            zla_odpowiedz1 = msg.showwarning("Koniec gry", zla_odpowiedz_message1)
-            if zla_odpowiedz1 == 'ok':
+            zla_odpowiedz_message = f"Wybrałeś/aś złą odpowiedź.\nUdało ci się wygrać {pieniadze_var.get()} PLN"
+            zla_odpowiedz = msg.showwarning("Koniec gry", zla_odpowiedz_message)
+            if zla_odpowiedz == 'ok':
                 root.destroy()
         else:
-            za_zero1 = msg.showwarning("Koniec gry", "Wybrałeś/aś złą odpowiedź.\nNiestety wychodzisz dzisiaj z niczym")
-            if za_zero1 == 'ok':
+            za_zero = msg.showwarning("Koniec gry", "Wybrałeś/aś złą odpowiedź.\nNiestety wychodzisz dzisiaj z niczym")
+            if za_zero == 'ok':
                 root.destroy()
+
+# Now use the single function for all the buttons
+def sprawdz_przycisk_a():
+    sprawdz_odpowiedz(odpowiedz_A)
 
 def sprawdz_przycisk_b():
-    if (koncowy_tekst_poprawnej_odpowiedzi == odpowiedz_B):
-        pieniadze_function()
-        pytania()
-        AktywujPrzyciski()
-    else:
-        if str(pieniadze_var.get()) != "0":
-            zla_odpowiedz_message2 = "Wybrałeś/aś złą odpowiedź.\nUdało ci się wygrać " + str(
-                pieniadze_var.get()) + "PLN"
-            zla_odpowiedz2 = msg.showwarning("Koniec gry", zla_odpowiedz_message2)
-            if zla_odpowiedz2 == 'ok':
-                root.destroy()
-        else:
-            za_zero2 = msg.showwarning("Koniec gry", "Wybrałeś/aś złą odpowiedź.\nNiestety wychodzisz dzisiaj z niczym")
-            if za_zero2 == 'ok':
-                root.destroy()
+    sprawdz_odpowiedz(odpowiedz_B)
 
 def sprawdz_przycisk_c():
-    if (koncowy_tekst_poprawnej_odpowiedzi == odpowiedz_C):
-        pieniadze_function()
-        pytania()
-        AktywujPrzyciski()
-    else:
-        if str(pieniadze_var.get()) != "0":
-            zla_odpowiedz_message3 = "Wybrałeś/aś złą odpowiedź.\nUdało ci się wygrać " + str(
-                pieniadze_var.get()) + "PLN"
-            zla_odpowiedz3 = msg.showwarning("Koniec gry", zla_odpowiedz_message3)
-            if zla_odpowiedz3 == 'ok':
-                root.destroy()
-        else:
-            za_zero3 = msg.showwarning("Koniec gry", "Wybrałeś/aś złą odpowiedź.\nNiestety wychodzisz dzisiaj z niczym")
-            if za_zero3 == 'ok':
-                root.destroy()
+    sprawdz_odpowiedz(odpowiedz_C)
 
 def sprawdz_przycisk_d():
-    if (koncowy_tekst_poprawnej_odpowiedzi == odpowiedz_D):
-        pieniadze_function()
-        pytania()
-        AktywujPrzyciski()
-    else:
-        if str(pieniadze_var.get()) != "0":
-            zla_odpowiedz_message4 = "Wybrałeś/aś złą odpowiedź.\nUdało ci się wygrać " + str(
-                pieniadze_var.get()) + "PLN"
-            zla_odpowiedz4 = msg.showwarning("Koniec gry", zla_odpowiedz_message4)
-            if zla_odpowiedz4 == 'ok':
-                root.destroy()
-        else:
-            za_zero4 = msg.showwarning("Koniec gry", "Wybrałeś/aś złą odpowiedź.\nNiestety wychodzisz dzisiaj z niczym")
-            if za_zero4 == 'ok':
-                root.destroy()
+    sprawdz_odpowiedz(odpowiedz_D)
+
 
 pytania()
 
@@ -246,7 +182,6 @@ def PolNaPol_Funkcja():
     PolNaPol.config(state="disabled")
 
 def Publicznosc_Funkcja():
-    # TO POZNIEJ TEZ OK OK | TRZEBA BEDZIE OBLICZYC PROCENTY
     if odpowiedz_A == koncowy_tekst_poprawnej_odpowiedzi:
         wykres("A")
     if odpowiedz_B == koncowy_tekst_poprawnej_odpowiedzi:
