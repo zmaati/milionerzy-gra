@@ -15,7 +15,7 @@ matplotlib
 Pillow
 numpy
 ```
-Albo otwórz terminal w folderze z grą i wpisz 
+Możesz też otworzyć terminal w folderze z grą i wpisac:
 ```
 pip install -r requirements.txt
 ```
