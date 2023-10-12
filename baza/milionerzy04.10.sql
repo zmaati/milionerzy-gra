@@ -54,7 +54,7 @@ INSERT INTO `pytania` (`id`, `tresc`, `odp_a`, `odp_b`, `odp_c`, `odp_d`, `pop_o
 (10, 'Kto jest autorem \"Makbeta\"?', 'George Orwell', 'Mark Twain', 'William Shakespeare', 'Edgar Allan Poe', 'William Shakespeare'),
 (11, 'Ile wynosi suma miar wszystkich kątów w trójkącie?', '90 stopni', '120 stopni', '180 stopni', '360 stopni', '180 stopni'),
 (12, 'Kto jest autorem książki \"Zabić drozda\"?', 'J.K. Rowling', 'George Orwell', 'Harper Lee', 'Charles Dickens', 'Harper Lee'),
-(13, 'Które zwierzę jest znane z czarno-białych pasów i jest zagrożone wyginięciem?', 'Panda', 'Koala', 'Orangutan', 'Tygrys', 'Panda'),
+(13, 'Które zwierzę z rodziny niedźwiedziowatych jest czarno-białe i zagrożone wyginięciem?', 'Panda', 'Koala', 'Orangutan', 'Tygrys', 'Panda'),
 (14, 'Która rzeka jest najdłuższą na świecie?', 'Nil', 'Amazonka', 'Missouri', 'Jangcy', 'Nil'),
 (15, 'Która planeta jest najbliższa Słońcu?', 'Mars', 'Wenus', 'Saturn', 'Uran', 'Wenus'),
 (16, 'Ile kontynentów jest na Ziemi?', '5', '6', '7', '8', '7'),
