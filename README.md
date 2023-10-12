@@ -15,7 +15,10 @@ matplotlib
 Pillow
 numpy
 ```
-
+Albo otwórz terminal w folderze z grą i wpisz 
+```
+pip install -r requirements.txt
+```
 Skonfiguruj połączenie z bazą danych, dostosowując zmienne takie jak host, user, password, i baza_danych w kodzie.
 
 Uruchom skrypt Pythona w swoim środowisku.
